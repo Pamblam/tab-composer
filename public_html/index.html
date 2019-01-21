@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Virtual Guitar</title>
+
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/navbar.css" rel="stylesheet">
+		<link href="css/app.css" rel="stylesheet">
+
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="#" class="navbar-brand"><span class='glyphicon glyphicon-music'></span> Virtual Guitar</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Composer</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<br>
+										<div>
+											<button class="btn btn-primary pull-left" id="new_song_part_btn"><span class='glyphicon glyphicon-plus'></span> Add a Song Part</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<label for="project-key">Project Key:</label>
+										<select class="form-control" id="project-key"></select>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="sel1">Project Mode:</label>
+										<select class="form-control" id="project-mode"></select>
+									</div>
+								</div>
+							</div>
+							
+							<div id="song_parts_div"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" tabindex="-1" role="dialog" id="song_part_modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">New Song Part</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="song_part_modal_name">Song Part Type:</label>
+							<select class="form-control" id="song_part_modal_name">
+								<option value='Verse'>Verse</option>
+								<option value='Chorus'>Chorus</option>
+								<option value='Hook'>Hook</option>
+								<option value='Pre-Chorus'>Pre-Chorus</option>
+								<option value='Bridge'>Bridge</option>
+								<option value='Solo'>Solo</option>
+								<option value='Intro'>Intro</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="song_part_modal_save">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" tabindex="-1" role="dialog" id="notes_modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Set Notes</h4>
+					</div>
+					<div class="modal-body">
+						
+						<ul class="nav nav-tabs" id="notes_modal_slides_tablist">
+							<li class="active"><a data-toggle="tab" href="#notes_modal_chord_tab">Single Notes, Chords</a></li>
+							<li><a data-toggle="tab" href="#notes_modal_slides_tab">Hammer-ons, Pull-offs, Slides</a></li>
+						</ul>
+						<div class="tab-content">
+							<div id="notes_modal_chord_tab" class="tab-pane fade in active">
+								<br>
+								
+								<center>
+									<div id="notes_modal_chart"></div>
+
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_e">E</label>
+											<input class="form-control fret-num-input" id="notes_modal_e" type="text" style="width:3em;">
+										</div>
+									</div>
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_A">A</label>
+											<input class="form-control fret-num-input" id="notes_modal_A" type="text" style="width:3em;">
+										</div>
+									</div>
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_D">D</label>
+											<input class="form-control fret-num-input" id="notes_modal_D" type="text" style="width:3em;">
+										</div>
+									</div>
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_G">G</label>
+											<input class="form-control fret-num-input" id="notes_modal_G" type="text" style="width:3em;">
+										</div>
+									</div>
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_B">B</label>
+											<input class="form-control fret-num-input" id="notes_modal_B" type="text" style="width:3em;">
+										</div>
+									</div>
+									<div style="display:inline-block">
+										<div class="form-group">
+											<label for="notes_modal_E">E</label>
+											<input class="form-control fret-num-input" id="notes_modal_E" type="text" style="width:3em;">
+										</div>
+									</div>							
+
+								</center>
+
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="form-group">
+											<label for="notes_modal_chord_sel">Chord:</label>
+											<select class="form-control" id="notes_modal_chord_sel"></select>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<label for="notes_modal_type_sel">Quality:</label>
+											<select class="form-control" id="notes_modal_type_sel"></select>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<label for="notes_modal_version">Voicing:</label>
+											<select class="form-control" id="notes_modal_version"></select>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div id="notes_modal_slides_tab" class="tab-pane fade">
+								<br>
+								
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>String</label></center>
+									</div>
+									<div class="col-xs-3">
+										<center><label>Start Fret</label></center>
+									</div>
+									<div class="col-xs-4">
+										<center><label>Transition</label></center>
+									</div>
+									<div class="col-xs-3">
+										<center><label>End Fret</label></center>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>E</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_e" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_e">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_e" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>A</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_A" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_A">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_A" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>D</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_D" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_D">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_D" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>G</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_G" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_G">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_G" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>B</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_B" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_B">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_B" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-2">
+										<center><label>E</label></center>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_start_E" type="text">
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="form-group">
+											<select class="form-control notes-modal-transition" id="notes_modal_transition_E">
+												<option value="slide">Slide</option>
+												<option value="hammeron">Hammer-on</option>
+												<option value="pulloff">Pull-off</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<input class="form-control fret-num-trans-input" id="notes_modal_transition_end_E" type="text">
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="notes_modal_save">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="js/musicology.js"></script>
+		<script src="js/fretted.js"></script>
+		<script src="js/voicings.js"></script>
+		<script src="js/virtual-guitar.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

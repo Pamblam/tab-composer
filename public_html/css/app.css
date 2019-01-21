@@ -1,0 +1,19 @@
+
+body{
+	margin-top: 5em;
+	background-image: url('../imgs/vignette.png');
+	background-size: cover;	
+}
+
+.measure{
+	font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+	margin: 0 .25em;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.measure-col-hover{
+	background-color: green;
+	color: red;
+	font-eright:bold;
+}
