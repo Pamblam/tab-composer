@@ -2,4 +2,4 @@
 
 a weekend project.
 
-https://pamblam.github.io/tab-componser
+https://pamblam.github.io/tab-composer/public_html/
